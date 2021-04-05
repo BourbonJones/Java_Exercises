@@ -1,4 +1,4 @@
-# Lab02
+# Lab01
 
-## Notebook do Lab02
-* Link para o arquivo: [Lab02]()
+## Notebook do Lab01
+* Link para o arquivo: [Lab01]()
