@@ -20,7 +20,6 @@ public class Peca {
 	public boolean movimentaPeca(String trajeto, int linF, int colF)
 	{
 		boolean permissao = false;
-		
 		if(trajeto.equals("b-")) 				//lance normal
 			permissao = true;
 		else if(trajeto.equals("bp-"))			//come peça adversaria
@@ -30,13 +29,15 @@ public class Peca {
 		else if(trajeto.equals("pb-"))			//come peça adversaria
 			permissao = true;
 		else
+		{
+			System.out.println("Peça não faz esse trajeto: " + trajeto);
+		}
 			
 		if(permissao) 
 		{
 			posLin = linF;
 			posCol = colF;	
-		}
-		
+		}		
 		return permissao;
 	}
 }
