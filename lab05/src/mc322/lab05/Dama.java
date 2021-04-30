@@ -20,7 +20,6 @@ public class Dama {
 	boolean movimentaDama(String trajeto, int linF, int colF)
 	{
 		boolean permissao = false;
-		System.out.println(trajeto);
 		if(trajeto.toLowerCase().equals("b-"))
 			permissao = true;
 		else if(trajeto.toLowerCase().equals("bp-") || trajeto.toLowerCase().equals("b-p-"))

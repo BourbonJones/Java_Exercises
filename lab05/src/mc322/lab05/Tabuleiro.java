@@ -7,7 +7,6 @@ public class Tabuleiro {
 	Dama matrixDama[][] = new Dama[maxLin][maxCol];
 	String source = "Tabuleiro inicial:";
 	String target = "";
-	String ultimaCor = "";
 	public boolean setomou = false;
 	String jogadaAnterior ="";
 	
@@ -33,7 +32,6 @@ public class Tabuleiro {
 				}
 			}			
 		}
-		//matrixDama[4][1] = new Dama("B", 4, 1);
 	}	
 	
 	void fazJogada(String jogada)
@@ -55,22 +53,22 @@ public class Tabuleiro {
 			{		
 				if(peca.movimentaPeca(trajeto, linF, colF))
 				{
-					source = "source: " + jogada.charAt(0) + jogada.charAt(1);
-					target = "target: " + jogada.charAt(3) + jogada.charAt(4);
-					//ultimaCor = peca.cor.toLowerCase();
+					source = "Source: " + jogada.charAt(0) + jogada.charAt(1);
+					target = "Target: " + jogada.charAt(3) + jogada.charAt(4);
 					
-					if(trajeto.length() == 3)	//Se for movimento de tomada de peca
+					if(trajeto.length() == 3) // Se for movimento de tomada de peca
 					{
-						matrixPeca[(linI+linF)/2][(colI+colF)/2] = null;	//A média retorna a casa entre a inicial e a final
+						matrixPeca[(linI+linF)/2][(colI+colF)/2] = null; // A média retorna a casa entre a inicial e a final
 						matrixDama[(linI+linF)/2][(colI+colF)/2] = null;
 						setomou = true;
 					}
 					else
+					{
 						setomou = false;
+					}
 					
 					matrixPeca[linI][colI] = null;
 					matrixPeca[linF][colF] = peca;
-					ultimaCor = corDaPeca(linF, colF);
 					jogadaAnterior = jogada;
 					
 					if(corDaPeca(linF, colF).equals("b") && linF == 0) 
@@ -84,20 +82,20 @@ public class Tabuleiro {
 						matrixDama[linF][colF] = new Dama("P", linF, colF);
 					}
 				}
-				else 		
-					setomou = false;
-				}
+				else 	
+				{
+					setomou = false;		
+				}			
+			}
 			
 			else if(dama != null)
-			{
-			
-			if(dama.movimentaDama(peixonauta, linF, colF))
+			{			
+				if(dama.movimentaDama(peixonauta, linF, colF))
 				{
-				System.out.println("aprovado pelo movimenta dama");
 					source = "source: " + jogada.charAt(0) + jogada.charAt(1);
 					target = "target: " + jogada.charAt(3) + jogada.charAt(4);
 					
-					if(peixonauta.length() == 3 || peixonauta.length() == 4)	//Se for movimento de tomada de peca
+					if(peixonauta.length() == 3 || peixonauta.length() == 4) // Se for movimento de tomada de peca
 					{
 						int colDelta = colF - colI;
 						int linDelta = linF - linI;
@@ -119,16 +117,16 @@ public class Tabuleiro {
 						}
 						setomou = true;
 					}
-					else {
+					else
+					{
 						setomou = false;
 					}
 					matrixDama[linI][colI] = null;
 					matrixDama[linF][colF] = dama;
-					ultimaCor = corDaPeca(linF, colF);
 					jogadaAnterior = jogada;
 				}
-				else {
-					System.out.println("n foi aprovado pelo movimenta peca");
+				else
+				{
 					setomou = false;
 				}
 			}
@@ -156,7 +154,7 @@ public class Tabuleiro {
 		int colDelta = Math.abs(colF - colI);
 		int linDelta = Math.abs(linF - linI);
 		
-		//verificacao de movimento na diagonal
+		// Verificação de movimento na diagonal
 		if(colDelta != linDelta)
 		{
 			System.out.println("Apenas jogadas na diagonal são válidas: " + jogada);			
@@ -165,30 +163,10 @@ public class Tabuleiro {
 		}
 		
 		String trajeto = fazTrajeto(linI, colI, linF, colF);
-		String peixonauta = MinimizarTrajetoDama(trajeto); //minimizacao do trajeto pra dama
+		String peixonauta = MinimizarTrajetoDama(trajeto); // Minimização do trajeto pra dama
 		
-		//verificacao de alternancia
-		
-		if(corDaPeca(linI, colI).equals(ultimaCor))
-		{
-			System.out.println(corDaPeca(linI, colI));
-			System.out.println(ultimaCor);
-			if(!setomou) {
-				System.out.println("(0)Não é a sua vez: " + jogada);
-				return false;
-				
-			}
-			if(!jogadaAnterior.substring(3).equals(jogada.substring(0,2))) {
-				System.out.println("(1)Não é a sua vez: " + jogada);
-				return false;
-			}
-			if(trajeto.length() < 3) {
-				System.out.println("(2)Não é a sua vez: " + jogada);
-				return false;
-			}
-		}
 
-		//Verificação de lance obrigatorio
+		// Verificação de lance obrigatório
 		for(int i=0; i<maxLin; i++)
 		{
 			for(int j=0; j<maxCol; j++)
@@ -205,14 +183,14 @@ public class Tabuleiro {
 					
 							if(trajetos[z].length() >= 3)
 							{
-								//System.out.println("trajeto " + z + " " + trajetos[z]);
+								// System.out.println("trajeto " + z + " " + trajetos[z]);
 								if(trajetos[z].substring(0,3).equals(cor + outraCor(cor) + "-"))
 								{
 									//System.out.println("trajeto  : " + trajeto);
 									//System.out.println("trajeto " + (z+1) + ": " + trajetos[z]);
 									if(!trajeto.equals(trajetos[z].substring(0,3)))
 									{
-										System.out.println("Jogada não permita. Há uma jogada obrigatória pendente :" + jogada);
+										System.out.println("Jogada não permita. Há uma jogada obrigatária pendente :" + jogada);
 										System.out.println("Estado do tabuleiro não atualizado");
 										return false;	
 									}									
@@ -234,8 +212,7 @@ public class Tabuleiro {
 					{
 						//System.out.println("trajeto ref " + trajeto);
 						for(int z=0; z<4; z++)
-						{
-					
+						{					
 							if(trajetos[z].length() >= 3)
 							{
 								//System.out.println("trajeto " + z + " " + trajetos[z]);
@@ -304,40 +281,44 @@ public class Tabuleiro {
 	    String auxTI = "";     //substring inicial de auxT
 	    String auxTF = "";     //substring inicial de auxT
 	    int i = 0;
-			int a;
+		int a = 0;
 			
 	    //System.out.println("comeco: " + auxT);
-			while(i < auxT.length()){
-				if(auxT.charAt(i) == '-') 
-				{
-			        auxTI = auxT.substring(0, i+1);
-			        if(i != auxT.length()-1)
-			        {
-					  a = i+1;
-					  
-			          while(auxT.charAt(a) == '-')
-			          {
-			            if(a == auxT.length()-1) {
-			            	break;
-			            }
-			            a++;
-			          }
-			          
-			          auxTF = auxT.substring(a);
-			          
-			          if(auxTF.equals("-"))
-			            auxTF = "";
-			          
-			          auxT = auxTI + auxTF;
-			          i = a-1;
-			        }
-			        i++;
-				}
-		       else
+		while(i < auxT.length())
+		{
+			if(auxT.charAt(i) == '-') 
+			{
+		        auxTI = auxT.substring(0, i+1);
+		        if(i != auxT.length()-1)
+		        {
+				  a = i+1;
+				  
+		          while(auxT.charAt(a) == '-')
+		          {
+		            if(a == auxT.length()-1) 
+		            {
+		            	break;
+		            }
+		            a++;
+		          }
+		          
+		          auxTF = auxT.substring(a);
+		          
+		          if(auxTF.equals("-"))
+		          {
+		            auxTF = "";
+		          }
+		          
+		          auxT = auxTI + auxTF;
+		          i = a-1;
+		        }
 		        i++;
 			}
-				//System.out.println("final: " + auxT);
-		
+			else
+			{
+				i++;
+			}
+		}	
 		return auxT;
 	}
 	
@@ -509,25 +490,5 @@ public class Tabuleiro {
 			estado += "\n";
 		}
 		return estado;
-	}
-	
-	public static void main(String[] args){		
-		CSVReader csv = new CSVReader();	
-		csv.setDataSource("C:\\Users\\Pablo\\Desktop\\comandos.csv");		
-		
-		Tabuleiro tabuleiro = new Tabuleiro();
-		
-		System.out.println(tabuleiro.estadoComBordasTabuleiro());
-		
-		String jogadas[] = csv.requestCommands();
-		System.out.println(jogadas.length);
-		
-		for(int i=0; i<jogadas.length; i++)
-		{
-			tabuleiro.fazJogada(jogadas[i]);
-			System.out.println("Lance: " + (i+1));
-			System.out.println(tabuleiro.estadoComBordasTabuleiro());
-		}
-		
 	}
 }
