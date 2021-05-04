@@ -401,7 +401,7 @@ public class Tabuleiro {
 	}
 
 	
-	void exportarArquivo()
+	String[] exportarArquivo()
 	{
 		String[] state = new String[64];
 		int contador = 0;
@@ -424,6 +424,8 @@ public class Tabuleiro {
 		}
 		for(int a=0; a<64; a++)
 			System.out.println(a + " " + state[a]);
+		
+		return state;
  	}	
 	
 }

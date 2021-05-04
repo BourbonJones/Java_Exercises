@@ -57,7 +57,10 @@ public class AppDama {
 			tab.solicitaMovimento(comandos[i]);
 		}
 		
-		tab.exportarArquivo();
+		String[] state = tab.exportarArquivo();
+		
+		//usar o exportState(state)
+		
 		System.out.println("\n\n---");
 		
 	}
