@@ -6,6 +6,6 @@
 * Randerson Araújo de Lemos. RA.: 103897
 
 # Arquivos Java do Jogo (Lab05 A)
-[Arquivo](lab05)
+[Arquivo](src/mc322/lab05)
 # Arquivos Java do Jogo (Lab05 B)
-[Arquivo](lab05b)
+[Arquivo](src/mc322/lab05b)
